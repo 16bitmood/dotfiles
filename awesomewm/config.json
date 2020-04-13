@@ -1,0 +1,25 @@
+{
+    "wallpaper":"nature/75.jpeg",
+    "theme":"idk",
+    "theme_color":"dark",
+    "apps":{
+        "firefox":{
+            "icon_name":"firefox.png"
+        },
+        "Thunar":{
+            "icon_name":"folder.png"
+        },
+        "code-oss":{
+            "icon_name":"code.png"
+        },
+        "URxvt":{
+            "icon_name":"term.png"
+        },
+        "discord":{
+            "icon_name":"discord.png"
+        },
+        "unknown":{
+            "icon_name":"unknown.png"
+        }
+    }
+}
