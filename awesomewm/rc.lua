@@ -138,7 +138,7 @@ end
 -- TODO:
 -- On maximized window, set taskbar to blackand white
 -- Use this: "property::floating_geometry The last geometry when client was floating."
--- helpers.set_current_wallpaper("keyboards/06.jpg") -- TODO:Make this interactive
+-- Make this interactive: helpers.set_current_wallpaper("keyboards/06.jpg")
 -- FIX custom_clienticon
 ---------------------------------------------------------------------------------------
 -- TESTING ZONE:
