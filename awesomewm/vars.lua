@@ -10,6 +10,7 @@ local ICON_DIR        = CONFIG_DIR.."/assets/icons"
 local STARTUP_SCRIPT  = SCRIPT_DIR.."/startup.sh"
 local PYWAL_SCRIPT    = SCRIPT_DIR.."/pywall_set.sh"
 local STORE_WALLPAPER = CONFIG_DIR.."/store_wallpaper"
+--
 ---------------------------------------------------------------------------------------
 --
 return {
