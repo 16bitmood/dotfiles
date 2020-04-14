@@ -111,7 +111,6 @@ client.connect_signal("manage",signal_manage)
 -- client.connect_signal("focus", signal_focus)
 -- client.connect_signal("unfocus", signal_unfocus)
 -- client.connect_signal("property::maximized",signal_maximized)
-
 -- Screen signals 
 screen.connect_signal("property::geometry", signal_geometry)
 --
