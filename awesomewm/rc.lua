@@ -49,7 +49,7 @@ local bars      = require("bars")      -- loads taskbar
 local keys      = require("keys")      -- set keybinds
 local titlebars = require("titlebars") -- load titlebars
 -- Initialize
-helpers.run_script(vars.STARTUP_SCRIPT)
+helpers.run_script(vars.STARTUP_SCRIPT .. " " .. vars.CACHE_DIR)
 helpers.set_pywal_wallpaper(helpers.get_current_wallpaper())
 --
 ------------------------------------------------------------------------------------

@@ -27,10 +27,21 @@ local savejson = function (path_of_file,table_to_write)
     -- TODO: json.lua doesn't support "pretty" formatting,
     -- find a way to do that
 end
+
+local readlines = function (path_of_file) -- TODO: add seperator option
+    local opened_file = io.open(path_of_file,"r")
+    local arr = {}
+    for line in opened_file:lines() do
+       table.insert (arr, line)
+    end
+    opened_file:close()
+    return arr
+end
 ------------------------------------------------------------------------------------
 return {
     readfull = readfull,
     saveall = saveall,
     readjson = readjson,
     savejson = savejson,
+    readlines = readlines,
 }

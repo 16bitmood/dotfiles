@@ -5,7 +5,7 @@ local awful     = require("awful")
 local wibox     = require("wibox")
 local beautiful = require("beautiful")
 local naughty   = require("naughty")
-
+--
 -------------------------------------------------------------------------
 -- My Imports
 local custom_clienticon = require("plugins.custom_clienticon")
@@ -52,7 +52,6 @@ local tasklist_buttons = gears.table.join(
 -- Wibar setup
 awful.screen.connect_for_each_screen(function(s)
     -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.noempty, taglist_buttons)
     s.mytasklist = awful.widget.tasklist {
         screen   = s,
@@ -107,6 +106,28 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.align.vertical,
         },
     }
+    s.mypromptbox = awful.widget.prompt()
+
+    s.memenu_search_left = wibox.widget{
+        text = '',
+        align  = 'center',
+        valign = 'center',
+        widget = wibox.widget.textbox
+    }
+
+    s.memenu_search_middle = wibox.widget{
+        text = '',
+        align  = 'center',
+        valign = 'center',
+        widget = wibox.widget.textbox
+    }
+
+    s.memenu_search_right = wibox.widget{
+        text = '',
+        align  = 'center',
+        valign = 'center',
+        widget = wibox.widget.textbox
+    }
 
     s.mywibox = awful.wibar({ position = "top", screen = s })
     -- Layout of the widgets
@@ -117,6 +138,15 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             s.mytaglist,
             s.mypromptbox,
+            s.memenu_prompt_search,
+            s.memenu_search_left,   
+            {
+                s.memenu_search_middle,
+                bg     = beautiful.fg_normal,
+                fg     = beautiful.bg_normal,
+                widget = wibox.container.background
+            },
+            s.memenu_search_right,
         },
         { -- Middle
             layout = wibox.layout.fixed.horizontal,

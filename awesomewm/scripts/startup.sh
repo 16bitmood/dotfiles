@@ -12,6 +12,9 @@ setxkbmap -option caps:escape
 # Swap Left Control and Caps Lock
 # setxkbmap -option ctrl:swapcaps &
 ################################################################
+# Generates a cache file of binaries in $PATH (on bash)
+compgen -c > ${1}/listbinaries
+################################################################
 # Tools 
 ## compositor
 picom -b &
