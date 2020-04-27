@@ -30,7 +30,8 @@ function clienticon:draw(_, cr, width, height)
     local aspect = math.min(aspect_w, aspect_h)
     cr:scale(aspect, aspect)
     s = surface(helpers.get_icon_path(c.class))
-    -- s=surface(gears.color.recolor_image(helpers.get_icon_path(c.class), theme.fg_color)) # FIX THIS
+    -- s=surface(gears.color.recolor_image(helpers.get_icon_path(c.class), theme.fg_color))
+    -- ToDo: fix ^
     cr:set_source_surface(s, 0, 0)
     cr:paint()
 end

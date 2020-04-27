@@ -29,9 +29,14 @@ end
 
 local function get_icon_path(class_name)
     local my_config = get_config()
-    local _icon_name = my_config.apps[class_name].icon_name or "unknown"
-    return vars.ICON_DIR .. "/" .. _icon_name
+    local t = my_config.apps[class_name]
+    if t ~= nil then
+        return vars.ICON_DIR .. "/" .. t.icon_name
+    else
+        return vars.ICON_DIR .. "/" .. "unknown.png"
+    end
 end
+
 local function set_current_wallpaper(new_wallpaper)
     local my_config = efile.readjson(vars.CONFIG_DIR.."/config.json")
     my_config.wallpaper = new_wallpaper
