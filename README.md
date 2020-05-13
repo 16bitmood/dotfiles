@@ -10,6 +10,7 @@ Term          : URxvt
 Editor        : VSCode (wal theme)
 In screenshot : vim,htop,neofetch
 Other         : Firefox,PyWal
+
 ```
 # Screenshots
 ![SS3](/assets/screenshots/03.png)

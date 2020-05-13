@@ -164,8 +164,13 @@ keys.clientkeys = gears.table.join(
             c:raise()
         end ,
         {description = "toggle maximize", group = "client"}),
-    awful.key({ modkey,}, "c", awful.placement.centered,
-        {description="center client",group="client"})
+    awful.key({ modkey,}, "c", 
+        function (c)
+            if not c.maximized then
+                awful.placement.centered(c)
+            end
+        end,
+        {description="center client if not maximized",group="client"})
 )
 --
 ------------------------------------------------------------------------------------
