@@ -12,6 +12,6 @@ Browser       : Firefox
 #+end_src
 
 *** Screenshots
-[./assets/screenshots/06.png]
-[./assets/screenshots/05.png]
-[./assets/screenshots/02.png]
+[[./assets/screenshots/06.png]]
+[[./assets/screenshots/05.png]]
+[[./assets/screenshots/02.png]]
