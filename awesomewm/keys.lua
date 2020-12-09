@@ -11,6 +11,8 @@ local menubar = require("menubar")
 ------------------------------------------------------------------------------------
 --
 local memenu = require("plugins.memenu")
+local helpers = require("helpers")
+local vars    = require("vars")
 -- Basics
 local keys = {}
 modkey   = "Mod4"
@@ -58,7 +60,7 @@ keys.globalkeys = gears.table.join(
     -- Tiling layout manipulation
     awful.key({ modkey, "Shift"   }, "j", 
         function () 
-            awful.client.swap.bydirection("down")
+           awful.client.swap.bydirection("down")
         end,
         {description = "swap with next client by index", group = "client"}
     ),
@@ -101,44 +103,60 @@ keys.globalkeys = gears.table.join(
     -- Reload rc.lua
     awful.key({ modkey, "Control" }, "r", 
                 function ()
-                    awesome.restart() 
+                   -- helpers.run_script(vars.CONFIG_DIR .. "/emacs_reload.sh")
+                   -- debug_print("Reloading Awesome!")
+                   awesome.restart() 
                 end,
               {description = "reload awesome", group = "awesome"}),
     
-    awful.key({ modkey,}, "space", function () awful.layout.inc( 1)                end,
-              {description = "Switch between Floating and Tiling", group = "layout"}),
+    awful.key({ modkey,}, "space",
+       function ()
+          awful.layout.inc(1)
+       end,
+       {description = "Switch between Floating and Tiling", group = "layout"}),
 
     awful.key({ modkey, "Shift" }, "n",
-              function ()
-                  local c = awful.client.restore()
-                  if c then
-                      client.focus = c
-                      c:raise()
-                  end
-              end,
-              {description = "restore minimized", group = "client"}),
+       function ()
+          local c = awful.client.restore()
+          if c then
+             client.focus = c
+             c:raise()
+          end
+       end,
+       {description = "restore minimized", group = "client"}),
     -- Prompt
     awful.key({ modkey }, "x",
-              function ()
-                memenu.run(awful.screen.focused().mypromptbox.widget)
-              end,
-              {description = "lua execute prompt", group = "awesome"}),
+       function ()
+          memenu.run(awful.screen.focused().mypromptbox.widget)
+       end,
+       {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+       {description = "show the menubar", group = "launcher"}),
     -- Shortcut Programs
     awful.key({ modkey, }, "Return", function () awful.spawn(terminal .. " -g 65x18") end,
-              {description = "open a terminal", group = "launcher"}),
+       {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey,  "Shift"  }, "Return", function () awful.spawn("xfce4-terminal" .. " --geometry=65x18") end,
-              {description = "open secondary terminal", group = "launcher"}),
-    awful.key({ modkey, }, "a",      function () awful.spawn("thunar /home/gts/main/") end,
-              {description = "Open File Manager", group = "launcher"}),
-    awful.key({ modkey, }, "=",      function () awful.spawn("pactl -- set-sink-volume 0 +5%") end,
-              {description = "Volume Increase 5%", group = "media-controls"}),
-    awful.key({ modkey, }, "-",      function () awful.spawn("pactl -- set-sink-volume 0 -5%") end,
-              {description = "Volume Decrease 5%", group = "media-controls"}),
+       {description = "open secondary terminal", group = "launcher"}),
+    awful.key({ modkey, }, "a",
+       function ()
+          awful.spawn("thunar main")
+          -- awful.spawn("nautilus /home/gts/main")
+       end,
+       {description = "Open File Manager", group = "launcher"}),
+    awful.key({ modkey, }, "e",      function () awful.spawn("emacsclient -c \"$@\" ") end,
+       {description = "emacs", group = "launcher"}),
+    awful.key({ modkey, }, "=",      function () awful.spawn("pactl set-sink-volume 0 +5%") end,
+       {description = "Volume Increase 5%", group = "media-controls"}),
+    awful.key({ modkey, }, "-",      function () awful.spawn("pactl set-sink-volume 0 -5%") end,
+       {description = "Volume Decrease 5%", group = "media-controls"}),
+
+    awful.key({ modkey, "Shift"}, "=",      function () awful.spawn("pactl set-sink-volume 0 100%") end,
+       {description = "Volume Increase 5%", group = "media-controls"}),
+    awful.key({ modkey, "Shift"}, "-",      function () awful.spawn("pactl set-sink-volume 0 15%") end,
+       {description = "Volume Decrease 5%", group = "media-controls"}),
     awful.key({ modkey, }, "s",      function () awful.spawn("scrot") end,
-              {description = "Screenshot", group = "quick shortcut"})
+       {description = "Screenshot", group = "quick shortcut"})
 )
 --
 ------------------------------------------------------------------------------------
@@ -214,4 +232,4 @@ root.keys(keys.globalkeys)
 root.buttons(keys.desktopbuttons)
 return keys
 --
-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------

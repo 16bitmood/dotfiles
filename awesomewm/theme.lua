@@ -23,7 +23,7 @@ local theme = beautiful.get()
 theme.name          = "my_theme"
 theme.wallpaper     = helpers.get_current_wallpaper()
 theme.font          = "Ubuntu Mono 12"
-theme.useless_gap   = dpi(16)
+theme.useless_gap   = dpi(10)
 theme.icon_theme    = nil
 
 --
@@ -147,8 +147,8 @@ theme.taglist_spacing            = dpi(0)   --This works
 theme.taglist_shape              = gears.shape.rectangle
 theme.taglist_shape_border_color = theme.bg_normal
 theme.taglist_shape_border_width = dpi(0)
-theme.taglist_squares_sel = nil
-theme.taglist_squares_unsel = nil
+theme.taglist_squares_sel        = nil
+theme.taglist_squares_unsel      = nil
 --
 ---------------------------------------------------------------------------------------
 -- Misc

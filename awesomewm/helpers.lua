@@ -13,13 +13,20 @@ local function run_script(script_path)
     os.execute(script_path)
 end
 
-local function set_pywal_wallpaper(wallpaper_path)
-    os.execute(vars.PYWAL_SCRIPT.." "..wallpaper_path)
+local function set_pywal_wallpaper(wallpaper_path,theme_name)
+   debug_print(wallpaper_path,nil ,"Wallpaper:")
+   debug_print(theme_name,nil ,"Theme:")
+   os.execute(vars.PYWAL_GENERATE_AND_SET_SCRIPT.." "..wallpaper_path.." "..theme_name)
 end
 
 local function get_current_wallpaper()
-    local my_config = efile.readjson(vars.CONFIG_DIR.."/config.json")
-    return vars.WALLPAPER_DIR .. "/" .. my_config.wallpaper
+   local my_config = efile.readjson(vars.CONFIG_DIR.."/config.json")
+   return vars.WALLPAPER_DIR .. "/" .. my_config.wallpaper
+end
+
+local function get_current_theme()
+   local my_config = efile.readjson(vars.CONFIG_DIR.."/config.json")
+   return my_config.theme
 end
 
 local function get_config()
@@ -43,12 +50,11 @@ local function set_current_wallpaper(new_wallpaper)
     efile.savejson(vars.CONFIG_DIR.."/config.json",my_config)
 end
 return {
-    debug_print =  debug_print,
-    run_script =  run_script,
-    set_pywal_wallpaper =  set_pywal_wallpaper,
-    get_config = get_config,
-    get_icon_path =  get_icon_path,
-    get_current_wallpaper =  get_current_wallpaper,
-
-    set_current_wallpaper =  set_current_wallpaper,
+   run_script              =  run_script,
+   set_pywal_wallpaper     =  set_pywal_wallpaper,
+   get_config              =  get_config,
+   get_icon_path           =  get_icon_path,
+   get_current_wallpaper   =  get_current_wallpaper,
+   get_current_theme       =  get_current_theme,
+   set_current_wallpaper   =  set_current_wallpaper,
 }

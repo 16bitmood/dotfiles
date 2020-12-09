@@ -1,0 +1,11 @@
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+! Aesthetics
+
+
+URxvt.font:        -gohu-gohufont-medium-*-*-*-14-*-*-*-*-*-*-*
+URxvt.internalBorder:  24
+URxvt.scrollBar: false
+
+URxvt.letterSpace: -1

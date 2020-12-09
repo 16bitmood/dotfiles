@@ -10,6 +10,7 @@ d8888  d88P  Y88b 888      Y8P 888                                         888
   888  888    888 888  888 888 888    888  888  888 888  888 888  888 888  888 
   888  Y88b  d88P 888 d88P 888 Y88b.  888  888  888 Y88..88P Y88..88P Y88b 888 
 8888888 "Y8888P"  88888P"  888  "Y888 888  888  888  "Y88P"   "Y88P"   "Y88888 
+
 ]]
 ------------------------------------------------------------------------------------
 -- https://github.com/16bitmood/
@@ -30,7 +31,7 @@ local inspect = require("inspect")
 function debug_print(s,timeout,title)
     s = assert(s)
     timeout = timeout or 5
-    title = tile or "[debug]"
+    title = title or "[debug]"
     -- TODO: add support for inbuilt debug library
     naughty.notify({
         timeout = timeout,
@@ -50,7 +51,7 @@ local keys      = require("keys")      -- set keybinds
 local titlebars = require("titlebars") -- load titlebars
 -- Initialize
 helpers.run_script(vars.STARTUP_SCRIPT .. " " .. vars.CACHE_DIR)
-helpers.set_pywal_wallpaper(helpers.get_current_wallpaper())
+helpers.set_pywal_wallpaper(helpers.get_current_wallpaper(), helpers.get_current_theme())
 --
 ------------------------------------------------------------------------------------
 -- Notifications
@@ -62,8 +63,8 @@ naughty.config.presets.critical.timeout = 20
 ------------------------------------------------------------------------------------
 -- Layouts
 awful.layout.layouts = {
-    awful.layout.suit.floating,
-    awful.layout.suit.tile
+   awful.layout.suit.floating,
+   awful.layout.suit.tile
 }
 --
 ------------------------------------------------------------------------------------
@@ -75,23 +76,26 @@ end)
 ------------------------------------------------------------------------------------
 -- Rules for clients
 awful.rules.rules = {
-    -- On new client connect
-    { rule = { },
-        properties = {                     
-            raise        = true,
-            keys         = keys.clientkeys,
-            buttons      = keys.clientbuttons,
-            screen       = awful.screen.preferred,
-            placement    = awful.placement.no_overlap+awful.placement.no_offscreen,
-            size_hints_honor  = false,
-            titlebars_enabled = false,
-            border_width = 0
+   -- On new client connect
+   { rule = { },
+     properties = {                     
+        raise        = true,
+        keys         = keys.clientkeys,
+        buttons      = keys.clientbuttons,
+        screen       = awful.screen.preferred,
+        placement    = awful.placement.no_overlap+awful.placement.no_offscreen,
+        size_hints_honor  = false,
+        titlebars_enabled = false,
+        border_width = 0
      },
      callback = awful.client.setslave
-    },
-    { rule = { class = "URxvt"},
-    properties = {titlebars_enabled = true}
-    },
+   },
+   { rule = { class = "URxvt"},
+     properties = {titlebars_enabled = true}
+   },
+   { rule = { class = "Emacs"},
+     properties = {titlebars_enabled = true}
+   },
 }
 --
 ------------------------------------------------------------------------------------
@@ -101,15 +105,24 @@ local function signal_manage(c)
     c:raise()
 end
 
+-- local function signal_maximized(c)
+--    awful.titlebar.hide(c)
+-- end
+
+-- local function signal_unmaximized(c)
+--    awful.titlebar.show(c)
+-- end
+
 local function signal_geometry(s)
     -- On resolution change
-    helpers.set_pywal_wallpaper(helpers.get_current_wallpaper())
+    -- helpers.set_pywal_wallpaper(helpers.get_current_wallpaper())
 end
 
 -- Client signals 
 client.connect_signal("manage",signal_manage)
 -- client.connect_signal("focus", signal_focus)
 -- client.connect_signal("unfocus", signal_unfocus)
+-- client.connect_signal("property::unmaximized",signal_unmaximized)
 -- client.connect_signal("property::maximized",signal_maximized)
 -- Screen signals 
 screen.connect_signal("property::geometry", signal_geometry)
@@ -136,7 +149,7 @@ end
 --
 ---------------------------------------------------------------------------------------
 -- TODO:
--- On maximized window, set taskbar to blackand white
+-- On maximized window, set taskbar to black and white
 -- Use this: "property::floating_geometry The last geometry when client was floating."
 -- Make this interactive: helpers.set_current_wallpaper("keyboards/06.jpg")
 -- FIX custom_clienticon

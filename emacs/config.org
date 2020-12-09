@@ -1,0 +1,700 @@
+* My Emacs Config (a.k.a. a somewhat random collection of elisp snippets found online)
+** Basic:
+*** Packages:
+**** Setting Repositories: 
+    #+BEGIN_SRC emacs-lisp
+    (require 'package)
+    (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+    (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+    (package-initialize)
+    #+END_SRC
+**** =use-package= Settings:
+    #+BEGIN_SRC emacs-lisp
+    (unless (package-installed-p 'use-package)
+        (package-refresh-contents)
+        (package-install 'use-package))
+
+    (require 'use-package-ensure)
+    (setq use-package-always-ensure t)
+
+    (use-package auto-compile
+        :config (auto-compile-on-load-mode))
+
+    (setq load-prefer-newer t)
+    #+END_SRC
+**** No Littering
+     #+begin_src emacs-lisp
+     (use-package no-littering)
+     #+end_src
+*** Change Some Defaults:
+    #+BEGIN_SRC emacs-lisp
+    ;; Make Buffer Names Unique 
+    (require 'uniquify)
+    (setq uniquify-buffer-name-style 'forward)
+
+    (save-place-mode 1)
+    (setq help-window-select t) 
+
+    (global-visual-line-mode 1)
+
+    (global-set-key (kbd "C-x C-x") 'execute-extended-command)
+
+    ;; Autosave in ~/.emacs.d instead of working directory
+    (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+        backup-by-copying t    ; Don't delink hardlinks
+        version-control t      ; Use version numbers on backups
+        delete-old-versions t  ; Automatically delete excess backups
+        kept-new-versions 20   ; how many of the newest versions to keep
+        kept-old-versions 5    ; and how many of the old
+        )
+    #+END_SRC
+** Look 
+*** Theme
+    #+begin_src emacs-lisp
+    ;; (add-hook 'text-mode-hook
+    ;;         (lambda ()  (variable-pitch-mode 1)))
+    (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/"))
+    (setq theme-name 'mytheme )
+    #+end_src
+*** Change Some Defaults
+    #+begin_src emacs-lisp
+    (setq inhibit-startup-screen t)
+    (setq inhibit-startup-echo-area-message t)
+    (setq inhibit-startup-message t)
+    (setq initial-scratch-message nil)
+    (setq default-fill-column 80)
+    (setq initial-major-mode 'org-mode)
+    (setq ring-bell-function 'ignore)
+    (setq-default indent-tabs-mode nil)
+    (tool-bar-mode 0)
+    (tooltip-mode  0)
+    (scroll-bar-mode 0)
+    (menu-bar-mode 0)
+    (set-window-scroll-bars (minibuffer-window) nil nil)
+    #+end_src
+*** Font
+    #+begin_src emacs-lisp
+    (set-face-attribute 'default nil
+        :family "GohuFont" 
+        :height 140)
+    (set-face-attribute 'fixed-pitch nil 
+        :family "GohuFont")
+    (set-face-attribute 'variable-pitch nil 
+        :family "Ubuntu Mono" 
+        :height 120)           
+    #+end_src
+
+    #+RESULTS:
+
+*** (Useless) Margins
+    #+begin_src emacs-lisp
+    ;; A (hacky) way to get upper margin using header-line
+    (add-hook 'after-change-major-mode-hook (lambda () (setq header-line-format " ")))
+    (setq-default left-margin-width 3 right-margin-width 3)
+    #+end_src
+*** From =lambda= to $\lambda$
+    #+begin_src emacs-lisp
+    (global-prettify-symbols-mode t)
+    #+end_src
+*** Group Major Modes in modeline
+    #+begin_src emacs-lisp
+    (use-package minions
+        :config
+        (setq minions-mode-line-lighter ""
+            minions-mode-line-delimiters '("" . ""))
+        (minions-mode 1))
+    #+end_src
+*** Line-Numbers and highlighting current line
+    #+begin_src emacs-lisp
+    (setq display-line-numbers-type 'relative)
+    ;; https://lists.gnu.org/archive/html/bug-gnu-emacs/2017-09/msg00743.html
+    (setq display-line-numbers-grow-only t) 
+    (global-display-line-numbers-mode)
+    ;; (global-hl-line-mode)
+    #+end_src
+*** Matching Paren Face
+    #+begin_src emacs-lisp
+    ;; (set-face-background 'show-paren-match (face-background 'default))
+    ;; (set-face-foreground 'show-paren-match "#def")
+    ;; (set-face-attribute 'show-paren-match nil :weight 'normal)
+    #+end_src
+*** Making Settings Work with emacs-client
+    #+begin_src emacs-lisp
+    (if (daemonp)
+        (add-hook 'after-make-frame-functions
+            (lambda (frame)
+                (select-frame frame)
+                ;; Set Theme
+                (load-theme theme-name  t)
+                (set-face-attribute 'header-line nil
+                        :box nil)
+                (set-face-attribute 'mode-line-inactive nil
+                        :box nil)
+                (set-face-attribute 'mode-line nil
+                        :box '(:line-width 1))
+                (setq header-line-format " ")))
+        (load-theme theme-name t))
+    #+end_src
+ 
+** Main Packages
+*** Evil Mode >:)
+    #+begin_src emacs-lisp
+    (use-package evil
+        :init
+        (setq evil-want-abbrev-expand-on-insert-exit nil
+              evil-undo-system 'undo-tree
+              evil-want-keybinding nil)
+            
+        :config
+        (evil-mode 1))
+
+    ;; (use-package evil-collection
+    ;;   :after evil
+    ;;   :config
+    ;;   (evil-collection-init))
+
+    (use-package evil-surround
+        :config
+        (setq comment-style 'multi-line)
+        (global-evil-surround-mode 1))
+
+    (use-package evil-commentary
+        :config
+        (evil-commentary-mode))
+
+    (use-package evil-org
+        :after org
+        :config
+        (add-hook 'org-mode-hook 'evil-org-mode)
+        (add-hook 'evil-org-mode-hook
+                (lambda ()
+                    (evil-org-set-key-theme)))
+        (require 'evil-org-agenda)
+        (evil-org-agenda-set-keys))
+    #+end_src
+
+*** Completion Framework
+    #+begin_src emacs-lisp
+    (use-package ivy
+        :config
+        (ivy-mode 1)
+        (setq ivy-initial-inputs-alist nil)
+        (setq ivy-use-virtual-buffers t)
+        (setq ivy-count-format "(%d/%d) "))
+
+    (use-package counsel)
+
+    (use-package swiper)
+
+    (use-package counsel-projectile
+        :after
+        (counsel projectile)
+        :config
+        (counsel-projectile-mode))
+        
+    ;; Change annoying default for enter to open dired 
+    (with-eval-after-load 'counsel
+        (let ((done (where-is-internal #'ivy-done     ivy-minibuffer-map t))
+            (alt  (where-is-internal #'ivy-alt-done ivy-minibuffer-map t)))
+        (define-key ivy-minibuffer-map done #'ivy-alt-done)
+        (define-key ivy-minibuffer-map alt  #'ivy-done)))
+
+    #+end_src
+
+*** Basic
+**** Workspaces
+     #+begin_src emacs-lisp
+     ;; Workspaces
+     (use-package eyebrowse
+         :config
+         (setq eyebrowse-new-workspace t)
+         (eyebrowse-mode))
+         
+     #+end_src
+**** Autocomplete
+     #+begin_src emacs-lisp
+     (use-package company
+         :config
+         (add-hook 'after-init-hook 'global-company-mode))
+     #+end_src
+**** Highlight =diff=
+     #+begin_src emacs-lisp
+     (use-package diff-hl
+         :config
+         (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+         (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
+     #+end_src
+**** Syntax Checker/Linter
+     #+begin_src emacs-lisp
+     (use-package flycheck
+         :config
+         (global-flycheck-mode))
+     #+end_src
+**** Tree structure for edits
+     #+begin_src emacs-lisp
+     (use-package undo-tree
+         :config
+         (global-undo-tree-mode))
+     #+end_src
+**** Try packages without installing
+     #+begin_src emacs-lisp
+     (use-package try)
+     #+end_src
+**** Displays keybinds
+     #+begin_src emacs-lisp
+     (use-package which-key
+         :config
+         (setq which-key-idle-delay 0.5)
+         (which-key-mode))
+     #+end_src
+**** Visual Movement =spc j j=
+     #+begin_src emacs-lisp
+     (use-package avy)
+     #+end_src
+**** Icon Fonts
+     #+begin_src emacs-lisp
+     (use-package all-the-icons)
+     ;;(all-the-icons-install-fonts)
+     #+end_src
+**** Project Management
+     #+begin_src emacs-lisp
+     (use-package projectile
+         :config
+         (projectile-global-mode +1)
+         (setq projectile-project-search-path 
+             '("~/main/sources/" "~/main/temp/" "~/main/sources/archive/"))
+         (setq projectile-completion-system 'ivy))
+     #+end_src
+**** Git Client
+     #+begin_src emacs-lisp
+     (use-package magit)
+     (use-package evil-magit)
+     #+end_src
+**** Visually select other window
+     #+begin_src emacs-lisp
+     (use-package ace-window
+         :after treemacs
+         :config
+         (setq aw-ignored-buffers (delq 'treemacs-mode aw-ignored-buffers)))
+     #+end_src
+**** Disabled
+     #+begin_src 
+     ;; (use-package aggressive-indent
+     ;;   :config
+     ;;   (global-aggressive-indent-mode 1))
+     ;;(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+     #+end_src
+
+*** Popup-Terminal
+    #+BEGIN_SRC emacs-lisp
+      (use-package exec-path-from-shell
+      :config
+      (exec-path-from-shell-initialize))
+      (use-package shell-pop
+      :config
+      (setq shell-pop-term-shell "/bin/bash"
+              shell-pop-window-size 30
+              shell-pop-autocd-to-working-dir t
+              shell-pop-window-position "bottom"
+              shell-pop-full-span nil
+              shell-pop-full-span nil)
+
+      ;; A fix for Emacs 27
+      (push (cons "\\*shell\\*" display-buffer--same-window-action) display-buffer-alist))
+      (add-hook 'shell-pop-in-after-hook 'evil-force-normal-state)
+    #+END_SRC
+
+** Languages
+*** Basic
+    #+begin_src emacs-lisp
+      ;; Highlights the matching paren
+      (show-paren-mode 1)
+
+      ;; Better Electric Pair Mode
+      (use-package smartparens
+        :config
+        (smartparens-global-mode 1)
+        (use-package evil-smartparens
+        :config (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)))
+
+      ;; (electric-pair-mode 1)
+      ;; (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+
+      (use-package rainbow-delimiters
+          :config
+          (rainbow-delimiters-mode 1)
+          (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+      (use-package highlight-parentheses
+          :config 
+          (highlight-parentheses-mode 1))
+    #+end_src
+    
+*** Python
+    #+BEGIN_SRC emacs-lisp
+      ;;(use-package python-mode)
+      (use-package elpy
+        :init
+        (elpy-enable))
+      (use-package py-autopep8
+        :config
+        (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
+
+      ;;(add-hook 'elpy-mode-hook 'flycheck-mode)
+
+      ;; (use-package company-anaconda
+      ;;     :config
+      ;;     (add-hook 'python-mode-hook 'anaconda-mode)       
+      ;;     (eval-after-load "company"
+      ;;         '(add-to-list 'company-backends 'company-anaconda)))
+    #+END_SRC
+
+*** Lua
+    #+BEGIN_SRC emacs-lisp
+    (use-package lua-mode)
+    #+END_SRC
+    
+*** Lisp
+    #+BEGIN_SRC emacs-lisp
+    (use-package slime)
+    (setq inferior-lisp-program "clisp")
+
+    (use-package geiser)
+    (setq geiser-default-implementation 'racket)
+    #+END_SRC
+*** Octave/Matlab
+    #+begin_src emacs-lisp
+    (setq auto-mode-alist
+        (cons '("\\.m$" . octave-mode) auto-mode-alist))
+    #+end_src
+*** Haskell
+    #+begin_src emacs-lisp
+   (use-package haskell-mode) 
+    #+end_src
+*** Rust
+    #+begin_src emacs-lisp
+   (use-package rust-mode) 
+   (use-package flycheck-rust)
+   (with-eval-after-load 'rust-mode
+       (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+    #+end_src
+*** WebDev
+    #+begin_src emacs-lisp
+    ;; https://gist.github.com/CodyReichert/9dbc8bd2a104780b64891d8736682cea  
+    (use-package web-mode)
+    (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
+    (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+    
+    (defun web-mode-init-hook ()
+      "Hooks for Web mode.  Adjust indent."
+      (setq web-mode-markup-indent-offset 4))
+    (add-hook 'web-mode-hook  'web-mode-init-hook)
+    
+    (setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(javascript-jshint json-jsonlist)))
+    (flycheck-add-mode 'javascript-eslint 'web-mode) 
+    (add-hook 'flycheck-mode-hook 'add-node-modules-path)
+    (use-package prettier-js)
+    (use-package add-node-modules-path)
+    (defun web-mode-init-prettier-hook ()
+      (add-node-modules-path)
+      (prettier-js-mode))
+
+    (add-hook 'web-mode-hook  'web-mode-init-prettier-hook)
+    (use-package emmet-mode)
+    (add-hook 'web-mode-hook  'emmet-mode)
+    #+end_src
+    
+** Some Functions 
+    #+BEGIN_SRC emacs-lisp
+    (defun 16bm/open-test-file () (interactive)
+        (find-file (expand-file-name "~/main/sources/test.org")))
+    (defun 16bm/open-todays-note ()
+            (interactive)
+            (let ((daily-name (format-time-string "%Y-%m-%d")))
+        (find-file (expand-file-name (concat "~/main/org/mylife/journal/" daily-name ".org")))))
+
+    (defun 16bm/open-emacs-config ()
+            (interactive)
+            (find-file (expand-file-name "~/main/config/emacs/config.org")))
+
+    (defun 16bm/sync-config-repo ()
+            (interactive)
+            (shell-command "~/main/config/sync.sh"))
+
+    (defun 16bm/kill-this-buffer ()
+        (interactive) (kill-buffer (current-buffer)))
+    #+END_SRC
+
+** Org-Mode!
+*** General
+    #+BEGIN_SRC emacs-lisp
+    (require 'org-tempo) ;; shortcuts
+    (setq org-hide-leading-stars t) 
+    (setq org-src-fontify-natively t) ;; gotta be honest, don't know what this is for
+    (use-package org-superstar
+        :config
+        (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+    #+END_SRC
+*** Basic
+    #+BEGIN_SRC emacs-lisp
+    (setq org-M-RET-may-split-line nil) ;; Weird M-RET behaviour
+    (setq org-blank-before-new-entry
+        '((heading . nil)
+        (plain-list-item . nil)))
+    #+END_SRC
+*** LaTeX options
+    #+begin_src emacs-lisp
+    (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+    #+end_src
+*** Literate Programming
+    #+BEGIN_SRC emacs-lisp
+    (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((emacs-lisp . t)
+        (C . t)
+        (python . t)
+        (lisp . t)
+        (scheme . t)))
+
+    (setq org-highlight-latex-and-related '(latex))
+    (setq org-confirm-babel-evaluate nil)
+    #+END_SRC
+*** Agenda
+    #+BEGIN_SRC emacs-lisp
+    (setq org-agenda-files
+    (list "~/main/org/mylife/projects.org"
+            "~/main/org/mylife/tickler.org"))
+    #+END_SRC
+** Key Binds
+   Basically Budget spacemacs
+*** Setup
+    #+begin_src emacs-lisp
+    (use-package general
+        :config
+        (general-evil-setup t))
+    #+end_src
+*** Global
+**** General
+     #+begin_src emacs-lisp
+     (general-define-key
+         :states '(normal insert visual emacs treemacs)
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         "TAB" '( (lambda () 
+                     (interactive) (switch-to-buffer (other-buffer (current-buffer) 1)))
+                     :wk "Switch to previous buffer")
+
+         "x" '(counsel-M-x :wk "Extended Commands")
+
+         "`" '(shell-pop :wk "Shell")
+
+         "ar" '(align-regexp :which-key "align using pivot regex")
+         
+         "s" '(save-buffer :wk "Save buffer")
+
+         "t" '((lambda ()
+                (interactive)
+                (if (eq evil-state 'treemacs)
+                    (select-window (previous-window))
+                    (treemacs-select-window)))
+                :wk "Toggle Treemacs")
+
+         "b" '(ivy-switch-buffer :wk "Switch Buffer")
+         "q" '(kill-this-buffer :wk "Kill Current Buffer"))
+    #+end_src
+
+    #+RESULTS:
+
+**** Open
+     #+begin_src emacs-lisp
+     (general-define-key
+         :states '(normal insert visual emacs treemacs)
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         "o" '(:ignore t :wk "Open")
+         "ot" '(16bm/open-test-file :wk "test.org")
+         "oe" '(16bm/open-emacs-config :wk "config.org")
+         "on" '(16bm/open-todays-note :wk "today.org")
+         "of" '(counsel-find-file :wk "Open File"))
+     #+end_src
+**** Jump
+     #+begin_src emacs-lisp
+     (general-define-key
+         :states '(normal insert visual emacs treemacs)
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         "j"  '(:ignore t :wk "Jump like an madman")
+         "jj" '(avy-goto-word-1 :wk "avy-jump to word")
+         "jd" '(dumb-jump-go :wk "dumb jump to definition")) ;; TODO
+     #+end_src
+**** Help
+     #+begin_src emacs-lisp
+     (general-define-key
+         :states '(normal insert visual emacs treemacs)
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         "h"  '(:ignore t          :wk "help")
+         "hb" '(describe-bindings :wk "Describe Keybind")
+         "hk" '(describe-key      :wk "Describe Key")
+         "hf" '(describe-function :wk "Describe Function")
+         "hv" '(describe-variable :wk "Describe Variable")
+         "hm" '(describe-mode     :wk "Describe Mode")
+         "ho" '(describe-symbol   :wk "Describe Symbol")
+         "hi" '(info              :wk "info"))
+     #+end_src
+**** Life Stuff
+     #+begin_src emacs-lisp
+     (general-define-key
+         :states '(normal insert visual emacs treemacs)
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         "l" '(:ignore :wk "Life")
+
+         "ll" '((lambda ()
+                   (interactive)
+                   (find-file (expand-file-name "~/main/org/mylife/year.org")))
+                   :wk "My Year!")
+
+         "lp" '((lambda ()
+                   (interactive)
+                   (find-file (expand-file-name "~/main/org/mylife/projects.org")))
+                   :wk "projects.org")
+
+        "li" '((lambda () (interactive)
+                  (find-file (expand-file-name "~/main/org/mylife/inbox.org")))
+                  :wk "inbox.org")
+
+        "lt" '((lambda () (interactive)
+                  (find-file (expand-file-name "~/main/org/mylife/tickler.org")))
+                  :wk "tickler.org")
+
+        "la" '(org-agenda :wk "Org Agenda"))
+     #+end_src
+**** Eyebrowse
+     #+begin_src emacs-lisp
+     (general-define-key
+         :states '(normal insert visual emacs treemacs)
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         "1" '(eyebrowse-switch-to-window-config-1 :wk "Enter Workspace 1")
+         "2" '(eyebrowse-switch-to-window-config-2 :wk "Enter Workspace 2")
+         "3" '(eyebrowse-switch-to-window-config-3 :wk "Enter Workspace 3")
+         "4" '(eyebrowse-switch-to-window-config-4 :wk "Enter Workspace 4")
+         "5" '(eyebrowse-switch-to-window-config-5 :wk "Enter Workspace 5"))
+     #+end_src
+**** Window Movement
+     #+begin_src emacs-lisp
+     (general-define-key
+         :states '(normal insert visual emacs treemacs)
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         "w"  '(:ignore t            :wk "Window Manage")
+         "wk" '(delete-window        :wk "Delete Current")
+         "wo" '(ace-window           :wk "Other Window (Ace)")
+         "w1" '(delete-other-windows :wk "Delete other Windows")
+         "w2" '(split-window-below   :wk "Below/Vertical Split")
+         "w3" '(split-window-right   :wk "Right/Horizontal Split"))
+     #+end_src
+**** Projectile
+     #+begin_src emacs-lisp
+     (general-define-key
+         :states '(normal insert visual emacs treemacs)
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         "p" '(:keymap projectile-command-map :wk "projectile prefix")
+         "P" '(:ignore t :wk "Projectile (Custom Functions)"))
+         
+         ;;"PP" '((lambda ()
+         ;;          (interactive)
+         ;;          (projectile-add-known-project)))
+     #+end_src
+**** Git
+     #+begin_src emacs-lisp
+     (general-define-key
+         :states '(normal insert visual emacs treemacs)
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         "g" '(:ignore t :wk "git")
+         "gg" '(magit-status :wk "Magit Status"))
+     #+end_src
+*** Mode-Specific
+**** org-mode
+     #+begin_src emacs-lisp
+     (general-define-key
+         :prefix "SPC m"
+         :non-normal-prefix "C-SPC m"
+         :states 'normal
+         :keymaps 'org-mode-map
+         "s" '(org-babel-restart-session-to-point :wk "Reload Session Till Point")
+         "c" '(org-ctrl-c-ctrl-c :wk "C-c C-c")
+         "l" '(org-latex-preview   :wk "Toggle Latex preview"))
+     #+end_src
+
+**** treemacs
+     #+begin_src emacs-lisp
+     (global-set-key [f8] 'treemacs) ;; Not necessary but whatever
+     (global-set-key [escape] 'minibuffer-keyboard-quit)
+     (global-set-key (kbd "C-x k") '16bm/kill-this-buffer)
+     
+     (general-define-key
+         :prefix "SPC"
+         :non-normal-prefix "C-SPC"
+         :keymaps 'treemacs-mode-map
+         :states 'treemacs
+         "t" '((lambda ()
+                  (interactive)
+                  (select-window (previous-window)))
+                  :wk "Toggle Treemacs")
+         "w"  '(:ignore t :wk "Window Manage")
+         "wk" '(delete-window :wk "Delete Current")
+         "wo" '(ace-window :wk "Other Window (Ace)")
+         "x" '(counsel-M-x :wk "Extended Commands"))
+     #+end_src
+** Random Gizmos
+*** Discord Integration
+    #+BEGIN_SRC emacs-lisp
+    (use-package elcord
+        :config
+        (elcord-mode 1))
+    #+END_SRC
+
+** Treemacs
+    #+BEGIN_SRC emacs-lisp
+    (use-package treemacs
+        :config
+        (treemacs-fringe-indicator-mode 1))
+
+    (use-package treemacs-evil
+        :after (treemacs evil))
+
+    (use-package treemacs-projectile
+        :after (treemacs projectile))
+
+    (use-package treemacs-icons-dired
+        :after (treemacs dired)
+        :config (treemacs-icons-dired-mode))
+
+    (use-package treemacs-magit
+        :after (treemacs magit))
+    #+END_SRC
+
+* Extra stuff
+** Random test snippets
+(setq debug-on-error t)
+(setq debug-on-quit t)                
+
+
+;;Break's here 
+(with-current-buffer " *load*"
+  (goto-char (point-max)))
+** Test
+    #+BEGIN_SRC emacs-lisp
+    ;; Trying out
+    (use-package doom-themes
+        :config
+        (setq doom-themes-treemacs-theme "doom-atom") ; use the colorful treemacs theme
+        (doom-themes-treemacs-config))
+    #+END_SRC

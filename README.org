@@ -1,0 +1,20 @@
+* ~/.dotfiles
+
+Some personal config files optimized for 90% */ =aesthetics= /* and 10% usability™
+
+#+begin_src 
+WM            : Awesome
+Font          : Ubuntu Mono/GohuFont
+Term          : URxvt
+Editor        : Emacs (Evil Mode)
+In screenshot : htop,neofetch,emacs
+Browser       : Firefox
+#+end_src
+
+*** Screenshots
+![SS6](/assets/screenshots/06.png)
+![SS4](/assets/screenshots/05.png)
+![SS4](/assets/screenshots/02.png)
+
+<!-- ![SS1](/assets/screenshots/01.png) -->
+<!-- ![SS2](/assets/screenshots/02.png) -->
