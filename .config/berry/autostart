@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Set decoration geometry
+berryc border_width       5
+berryc inner_border_width 0
+berryc title_height       0
+berryc top_gap            0
+
+# Set decoration colors
+berryc focus_color         95C7AE
+berryc unfocus_color       747c84
+berryc inner_focus_color   95C7AE
+berryc inner_unfocus_color 747c84
+berryc text_focus_color    ffffff
+berryc text_unfocus_color  eeeeee
+
+# Other options
+berryc smart_place "true"
+berryc draw_text   "false"
+berryc edge_lock   "true"
+
+# Startup Script
+source $HOME/main/src/dotfiles/scripts/startup &

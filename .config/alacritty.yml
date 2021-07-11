@@ -1,25 +1,25 @@
 window:
   dimensions:
-    columns: 75
-    lines: 22
+    columns: 60
+    lines: 20
   padding:
-    x: 30
-    y: 30
+    x: 20
+    y: 20
   decorations: full
 font:
     normal:
-        family: Ubuntu Mono Nerd Font Mono
+        family: dina
         style: Regular
     bold:
-      family: Ubuntu Mono
+      family: dina
       style: Bold
 
     italic:
-      family: Ubuntu Mono
+      family: dina
       style: Italic
 
     bold_italic:
-      family: Ubuntu Mono
+      family: dina
       style: Bold Italic
     size: 12.0
 key_bindings:

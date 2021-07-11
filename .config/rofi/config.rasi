@@ -1,0 +1,4 @@
+configuration {
+    theme: "~/.cache/wal/colors-rofi-dark";
+    font: "Ubuntu Mono Nerd Font Mono 12";
+}

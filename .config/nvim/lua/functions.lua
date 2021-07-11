@@ -7,9 +7,8 @@ _G.my = {
     end,
 
     SyncAndRestartConfig = function ()
-        _G.my.shell('bash ~/main/src/cfg/sync.sh')
+        _G.my.shell('bash ~/main/src/dotfiles/sync.sh')
         vim.cmd('PackerCompile')
-        vim.cmd('q')
     end,
 
     ConditionalEval = function (name, args)

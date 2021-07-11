@@ -25,7 +25,6 @@ require("awful.autofocus") -- When close window autofocus to last focused
 
 -- Other imports
 local inspect = require("inspect")
---
 ------------------------------------------------------------------------------------
 -- Global debugging function
 function debug_print(s,timeout,title)
