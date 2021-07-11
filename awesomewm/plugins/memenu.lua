@@ -24,7 +24,7 @@ local current_position = 1
 local search_text = {
     left = "",
     middle = "",
-    right = "", 
+    right = "",
 }
 --
 -------------------------------------------------------------------------

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=~/main/src/cfg/scripts/startup
+Name=startup_script
+Comment=Does stuff
+Terminal=false
+OnlyShowIn=GNOME
+Type=Application
+StartupNotify=true
+X-GNOME-Autostart-enabled=true

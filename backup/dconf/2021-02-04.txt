@@ -1,0 +1,324 @@
+[io/elementary/appcenter/settings]
+last-refresh-time=int64 1612438610
+window-maximized=false
+window-position=(477, 260)
+window-size=(1100, 660)
+
+[org/freedesktop/tracker/miner/files]
+index-recursive-directories=['&DESKTOP', '&DOCUMENTS', '&MUSIC', '&PICTURES', '&VIDEOS', '/home/gts/main/org', '$HOME', '/home/gts/main/read']
+
+[org/gnome/control-center]
+last-panel='keyboard'
+
+[org/gnome/desktop/app-folders/folders/Pop-Office]
+apps=['libreoffice-calc.desktop', 'libreoffice-draw.desktop', 'libreoffice-impress.desktop', 'libreoffice-math.desktop', 'libreoffice-startcenter.desktop', 'libreoffice-writer.desktop']
+name='Office'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/Pop-System]
+apps=['gnome-language-selector.desktop', 'gnome-session-properties.desktop', 'gnome-system-monitor.desktop', 'im-config.desktop', 'nm-connection-editor.desktop', 'nvidia-settings.desktop', 'org.gnome.baobab.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.PowerStats.desktop', 'org.gnome.seahorse.Application.desktop', 'software-properties-gnome.desktop', 'system76-driver.desktop', 'system76-firmware.desktop']
+name='System'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/Pop-Utility]
+apps=['com.github.donadigo.eddy.desktop', 'com.system76.Popsicle.desktop', 'gucharmap.desktop', 'info.desktop', 'org.gnome.eog.desktop', 'org.gnome.Evince.desktop', 'org.gnome.Extensions.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.font-viewer.desktop', 'org.gnome.Screenshot.desktop', 'org.gnome.Totem.desktop', 'simple-scan.desktop', 'yelp.desktop']
+name='Utilities'
+translate=true
+
+[org/gnome/desktop/background]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///usr/share/backgrounds/pop/spacex-81773.jpg'
+primary-color='#000000'
+secondary-color='#000000'
+
+[org/gnome/desktop/calendar]
+show-weekdate=false
+
+[org/gnome/desktop/input-sources]
+current=uint32 0
+per-window=false
+sources=[('xkb', 'us')]
+xkb-options=@as []
+
+[org/gnome/desktop/interface]
+clock-show-seconds=false
+clock-show-weekday=true
+enable-animations=true
+enable-hot-corners=true
+gtk-im-module='gtk-im-context-simple'
+gtk-key-theme='Emacs'
+show-battery-percentage=false
+text-scaling-factor=1.0
+
+[org/gnome/desktop/notifications]
+application-children=['io-elementary-appcenter', 'firefox', 'org-gnome-nautilus', 'org-gnome-tweaks', 'org-gnome-shell-extensions', 'org-gnome-terminal', 'discord', 'emacs']
+
+[org/gnome/desktop/notifications/application/discord]
+application-id='discord.desktop'
+
+[org/gnome/desktop/notifications/application/emacs]
+application-id='emacs.desktop'
+
+[org/gnome/desktop/notifications/application/firefox]
+application-id='firefox.desktop'
+
+[org/gnome/desktop/notifications/application/io-elementary-appcenter]
+application-id='io.elementary.appcenter.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-nautilus]
+application-id='org.gnome.Nautilus.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-shell-extensions]
+application-id='org.gnome.Shell.Extensions.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-terminal]
+application-id='org.gnome.Terminal.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-tweaks]
+application-id='org.gnome.tweaks.desktop'
+
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=false
+
+[org/gnome/desktop/peripherals/touchpad]
+two-finger-scrolling-enabled=true
+
+[org/gnome/desktop/privacy]
+disable-microphone=false
+report-technical-problems=true
+
+[org/gnome/desktop/screensaver]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///usr/share/backgrounds/pop/spacex-81773.jpg'
+primary-color='#000000'
+secondary-color='#000000'
+
+[org/gnome/desktop/search-providers]
+disabled=['org.gnome.Contacts.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Calendar.desktop', 'org.gnome.seahorse.Application.desktop', 'io.elementary.appcenter.desktop', 'org.gnome.Terminal.desktop']
+sort-order=['org.gnome.Contacts.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop']
+
+[org/gnome/desktop/wm/keybindings]
+close=['<Shift><Super>q']
+move-to-workspace-1=['<Shift><Super>exclam']
+move-to-workspace-2=['<Shift><Super>at']
+move-to-workspace-3=['<Shift><Super>numbersign']
+move-to-workspace-4=['<Shift><Super>dollar']
+switch-to-workspace-1=['<Super>1']
+switch-to-workspace-2=['<Super>2']
+switch-to-workspace-3=['<Super>3']
+switch-to-workspace-4=['<Super>4']
+switch-to-workspace-last=@as []
+toggle-fullscreen=['<Super>f']
+
+[org/gnome/desktop/wm/preferences]
+button-layout='appmenu:minimize,close'
+num-workspaces=7
+workspace-names=['main', 'alt', 'editor', 'chat']
+
+[org/gnome/eog/view]
+background-color='rgb(0,0,0)'
+use-background-color=true
+
+[org/gnome/evince/default]
+window-ratio=(3.6508414101459583, 1.7109852004811401)
+
+[org/gnome/evolution-data-server]
+migrated=true
+network-monitor-gio-name=''
+
+[org/gnome/file-roller/listing]
+list-mode='as-folder'
+name-column-width=250
+show-path=false
+sort-method='name'
+sort-type='ascending'
+
+[org/gnome/file-roller/ui]
+sidebar-width=200
+window-height=480
+window-width=600
+
+[org/gnome/gedit/plugins]
+active-plugins=['sort', 'filebrowser', 'docinfo', 'spell', 'modelines']
+
+[org/gnome/gedit/plugins/filebrowser]
+root='file:///'
+tree-view=true
+virtual-root='file:///media/gts/3120841d-40de-48be-ad7d-033adbf09cf3/home/gts/Downloads'
+
+[org/gnome/gedit/preferences/ui]
+show-tabs-mode='auto'
+
+[org/gnome/gedit/state/window]
+bottom-panel-size=140
+side-panel-active-page='GeditWindowDocumentsPanel'
+side-panel-size=200
+size=(900, 700)
+state=87168
+
+[org/gnome/mutter]
+center-new-windows=false
+dynamic-workspaces=false
+
+[org/gnome/nautilus/list-view]
+default-column-order=['name', 'size', 'type', 'owner', 'group', 'permissions', 'where', 'date_modified', 'date_modified_with_time', 'date_accessed', 'recency', 'starred', 'detailed_type']
+default-visible-columns=['name', 'size', 'date_modified', 'starred']
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='icon-view'
+recursive-search='never'
+search-filter-time-type='last_modified'
+search-view='list-view'
+
+[org/gnome/nautilus/window-state]
+initial-size=(890, 550)
+maximized=false
+
+[org/gnome/settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
+email=@as []
+help=@as []
+home=@as []
+magnifier=@as []
+magnifier-zoom-in=@as []
+magnifier-zoom-out=@as []
+screenreader=@as []
+terminal=['<Super>Return']
+volume-down=['<Super>minus']
+volume-up=['<Super>equal']
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Super>e'
+command='emacsclient -c'
+name='emacsclient'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='<Shift><Super>e'
+command='emacs'
+name='emacs'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2]
+binding='<Super>a'
+command='nautilus /home/gts/main/'
+name='nautilus'
+
+[org/gnome/settings-daemon/plugins/xsettings]
+antialiasing='rgba'
+hinting='full'
+
+[org/gnome/shell]
+command-history=['gnome-tweak-tool', 'gnome-tweaks', 'gnome-session-properties']
+disable-user-extensions=false
+enabled-extensions=['pop-shell@system76.com', 'pop-shop-details@system76.com', 'system76-power@system76.com', 'ubuntu-appindicators@ubuntu.com', 'dash-to-dock@micxgx.gmail.com', 'clipboard-indicator@tudmotu.com', 'alternate-tab@gnome-shell-extensions.gcampax.github.com', 'show-ip@sgaraud.github.com', 'disable-workspace-switcher-popup@github.com', 'putWindow@clemens.lab21.org', 'horizontal-workspaces@gnome-shell-extensions.gcampax.github.com', 'ding@rastersoft.com', 'steal-my-focus@kagesenshi.org']
+
+[org/gnome/shell/extensions/dash-to-dock]
+animate-show-apps=true
+animation-time=0.20000000000000001
+apply-custom-theme=false
+autohide-in-fullscreen=false
+background-color='#000000'
+background-opacity=0.62
+click-action='cycle-windows'
+custom-background-color=false
+custom-theme-shrink=true
+dash-max-icon-size=48
+force-straight-corner=false
+height-fraction=1.0
+hide-delay=0.20000000000000001
+hot-keys=false
+intellihide-mode='FOCUS_APPLICATION_WINDOWS'
+isolate-workspaces=true
+max-alpha=0.80000000000000004
+multi-monitor=true
+preferred-monitor=0
+running-indicator-style='DEFAULT'
+show-apps-at-top=false
+show-favorites=false
+show-mounts=true
+show-show-apps-button=true
+show-trash=false
+show-windows-preview=false
+transparency-mode='DYNAMIC'
+
+[org/gnome/shell/extensions/ding]
+show-home=false
+show-network-volumes=true
+show-trash=false
+show-volumes=true
+
+[org/gnome/shell/extensions/improved-workspace-indicator]
+panel-position='right'
+
+[org/gnome/shell/extensions/org-lab21-putwindow]
+put-to-center=['<Super>c']
+put-to-center-enabled=1
+put-to-corner-ne=@as []
+put-to-corner-ne-enabled=0
+put-to-corner-nw=@as []
+put-to-corner-nw-enabled=0
+put-to-corner-se=@as []
+put-to-corner-se-enabled=0
+put-to-corner-sw=@as []
+put-to-corner-sw-enabled=0
+put-to-left-screen=@as []
+put-to-left-screen-enabled=0
+put-to-location=@as []
+put-to-location-enabled=0
+put-to-right-screen=@as []
+put-to-right-screen-enabled=0
+put-to-side-e=@as []
+put-to-side-e-enabled=0
+put-to-side-n=@as []
+put-to-side-n-enabled=0
+put-to-side-s=@as []
+put-to-side-s-enabled=0
+put-to-side-w=@as []
+put-to-side-w-enabled=0
+
+[org/gnome/shell/extensions/pop-shell]
+snap-to-grid=false
+tile-by-default=false
+tile-enter=['<Shift><Super>Return']
+
+[org/gnome/shell/extensions/show-ip]
+ipv6=false
+menu=false
+public=false
+
+[org/gnome/shell/extensions/switching-to-non-empty-workspace]
+switch-to-next-non-empty-workspace=@as []
+switch-to-next-non-empty-workspace-enabled=false
+switch-to-prev-non-empty-workspace=@as []
+switch-to-prev-non-empty-workspace-enabled=false
+workspace-wrap-around=true
+
+[org/gnome/shell/keybindings]
+toggle-application-view=@as []
+
+[org/gnome/shell/window-switcher]
+app-icon-mode='both'
+
+[org/gnome/system/location]
+enabled=false
+
+[org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+font='Fira Mono 11'
+
+[org/gtk/settings/color-chooser]
+selected-color=(true, 0.0, 0.0, 0.0, 1.0)
+
+[org/gtk/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=150
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'
+window-position=(399, 88)
+window-size=(1124, 822)

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Keyboard Preferences
+## Swaps alt and super keys
+setxkbmap -option altwin:swap_alt_win
+
+## Gotta go fast
+xset r rate 300 50
+
+## Remaps caps to escape
+setxkbmap -option caps:escape
+
+## Redshift
+redshift -l 28.63576:77.22445 &

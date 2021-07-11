@@ -1,0 +1,28 @@
+window:
+  dimensions:
+    columns: 75
+    lines: 22
+  padding:
+    x: 30
+    y: 30
+  decorations: full
+font:
+    normal:
+        family: Ubuntu Mono Nerd Font Mono
+        style: Regular
+    bold:
+      family: Ubuntu Mono
+      style: Bold
+
+    italic:
+      family: Ubuntu Mono
+      style: Italic
+
+    bold_italic:
+      family: Ubuntu Mono
+      style: Bold Italic
+    size: 12.0
+key_bindings:
+    - { key: F11, action: ToggleFullscreen }
+debug:
+    render_timer: false

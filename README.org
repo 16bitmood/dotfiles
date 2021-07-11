@@ -1,8 +1,8 @@
 * ~/.dotfiles
-
+  
 Some personal config files optimized for 90% */ =aesthetics= /* and 10% usability™
 
-#+begin_src 
+#+begin_src
 WM            : Awesome
 Font          : Ubuntu Mono/GohuFont
 Term          : URxvt
@@ -11,7 +11,7 @@ In screenshot : htop,neofetch,emacs
 Browser       : Firefox
 #+end_src
 
-*** Screenshots
+** Screenshots
 [[./assets/screenshots/06.png]]
 [[./assets/screenshots/05.png]]
 [[./assets/screenshots/02.png]]
